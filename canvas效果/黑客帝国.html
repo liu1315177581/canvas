@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		body{
+			margin: 0;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="canvas" style="background:#000"></canvas>
+</body>
+<script>
+	var canvas = document.getElementById("canvas");					//获取元素
+	var ctx = canvas.getContext('2d');								//转为2d画布
+	var w = canvas.width = document.documentElement.clientWidth;	//设置画布区域大小
+	var h = canvas.height = document.documentElement.clientHeight;
+	var clearColor = "rgba(0,0,0,0.1)";								//设置渐变的颜色
+	var wordColor = "#33ff33";										//设置画字的颜色
+	var words = "sdasdasdasdarrqwregsggfdgeryet";					//设置文字
+	var wordArr = words.split("");									//切割字符串
+	var font_size = 17;												//设置字体大小
+	var clumns = Math.floor(w/font_size);							//根据字体大小，设置分布列数
+	var drops = [];													//声明一个空数组，用于每渲染一
+	for(var i = 0; i<clumns; i++){									//for循环数组，初始把数组的每一项都设置为1；
+		drops[i] = 1;
+	}
+	function draw(){
+		ctx.save();													
+		ctx.fillStyle = wordColor;									//设置绘画字体颜色
+		ctx.font = font_size+"px arial";							//设置字体大小和颜色
+		for(var i = 0; i<drops.length; i++){						//for循环数组
+			var text = wordArr[Math.floor(Math.random()*wordArr.length)];	//随机取字符串的数组内的字体进行绘画
+			ctx.fillText(text,i*font_size,drops[i]*font_size);
+			if(drops[i]*font_size > h && Math.random()>0.99){		//这里判断存数字的数组里面值大于屏幕大小并且用一个随机数来让数组内数组重置，就是重新开头画，达成一种随机的效果
+				drops[i] = 0;
+			}
+			//console.log(drops[i])
+			drops[i]++;	//这里数组内的值不断的变化，就是for循环一组，渲染一行数字，不断的往下渲染，就会不断的++；
+		}
+		ctx.restore();
+	}
+	(function drawFrame(){
+		window.requestAnimationFrame(drawFrame,canvas);
+		ctx.fillStyle = clearColor;
+		ctx.fillRect(0,0,w,h);
+		draw();
+	})()
+</script>
+</html>	
