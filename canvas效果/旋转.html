@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<canvas id="canvas1" width="400" height="400" style="background: #000;"></canvas>
+</body>
+<script>
+	var canvas = document.getElementById("canvas1");
+	var ctx = canvas.getContext('2d');
+	var x = Math.random()*400+10;
+	var y = Math.random()*400+10;
+	ctx.beginPath();
+	ctx.arc(x,y,20,0,2*Math.PI);
+	ctx.fillStyle = "red";
+	ctx.fill();
+	var vr = 0.05,
+	cos = Math.cos(vr),
+	sin = Math.sin(vr),
+	centerX = canvas.width/2,
+	centerY = canvas.height/2;
+	drawFrame();
+	//console.log(cos)
+	function drawFrame(){
+		//console.log(cos);
+		window.requestAnimationFrame(drawFrame,canvas);
+		//console.log(1);
+		ctx.clearRect(0,0,canvas.width,canvas.height);
+		var x1 = x-centerX;
+		var y1 = y-centerY;
+		var newX = x1*cos-y1*sin;
+		var newY = y1*cos+x1*sin;
+		x = centerX+newX;
+		y = centerY+newY;
+		ctx.beginPath();
+		ctx.arc(x,y,20,0,2*Math.PI);
+		ctx.fillStyle = "red";
+		ctx.fill();
+	}
+</script>
+</html>
