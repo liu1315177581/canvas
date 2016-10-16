@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<canvas id="canvas" width="500" height="500" style="background:#000;"></canvas>
+</body>
+<script>
+	var canvas = document.getElementById("canvas");
+	var ctx = canvas.getContext('2d');
+	var rotation = 0;
+	ctx.save();
+	ctx.translate(100,100);
+	ctx.rotate(rotation);
+	ctx.fillStyle = "yellow";
+	ctx.lineWidth = 5;
+	ctx.beginPath();
+	ctx.moveTo(-50,-25);
+	ctx.lineTo(0,-25);
+	ctx.lineTo(0,-50);
+	ctx.lineTo(50,0);
+	ctx.lineTo(0,50);
+	ctx.lineTo(0,25);
+	ctx.lineTo(-50,25);
+	ctx.closePath(); //路径闭合
+	ctx.stroke(); //描边
+	ctx.fill(); //填充
+	ctx.restore();
+	var moveX = 0;
+	var moveY = 0;
+	canvas.addEventListener("mousemove",function(ev){
+		moveX = ev.clientX;
+		moveY = ev.clientY;
+		drawFrame();
+	})
+	function drawFrame(){
+		window.requestAnimationFrame(drawFrame,canvas);
+		ctx.clearRect(0,0,canvas.width,canvas.height);
+		var dx = moveX - 100;
+		var dy = moveY - 100;
+		rotation = Math.atan2(dy,dx);
+
+
+		ctx.save();
+		ctx.translate(100,100);
+		ctx.rotate(rotation);
+		ctx.fillStyle = "yellow";
+		ctx.lineWidth = 5;
+		ctx.beginPath();
+		ctx.moveTo(-50,-25);
+		ctx.lineTo(0,-25);
+		ctx.lineTo(0,-50);
+		ctx.lineTo(50,0);
+		ctx.lineTo(0,50);
+		ctx.lineTo(0,25);
+		ctx.lineTo(-50,25);
+		ctx.closePath(); //路径闭合
+		ctx.stroke(); //描边
+		ctx.fill(); //填充
+		ctx.restore();
+	}
+</script>
+</html>

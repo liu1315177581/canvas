@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<canvas id="canvas" width="1000" height="1000" style="background:#ccc;">
+	</canvas>
+</body>
+<script>
+	var canvas = document.getElementById("canvas");
+	var ctx = canvas.getContext('2d');
+	ctx.save();
+	ctx.translate(200,200);
+	ctx.lineWidth = 3;
+	ctx.fillStyle = "yellow";
+	ctx.strokeStyle = "red";
+	ctx.beginPath();
+	ctx.arc(0,0,30,0,2*Math.PI,false);
+	ctx.closePath();
+	ctx.fill();
+	ctx.stroke();
+	ctx.restore();
+	var angle = 0;
+	var range = 50;
+	var xspeed = 10;
+	var yspeed = 0.05;
+	var x = 0;
+
+	(function drawFram(){
+		window.requestAnimationFrame(drawFram,canvas);
+		//x = canvas.width/2+Math.sin(angle)*range;
+		x+=xspeed;
+		// if(x>canvas.width+30){
+		// 	x = -30
+		// }
+		angle+=0.1;
+		ctx.clearRect(0,0,canvas.width,canvas.height);
+		ctx.save();
+		ctx.translate(x,200);
+		ctx.lineWidth = 3;
+		ctx.fillStyle = "yellow";
+		ctx.strokeStyle = "red";
+		ctx.beginPath();
+		ctx.arc(0,0,30,0,2*Math.PI,false);
+		ctx.closePath();
+		ctx.fill();
+		ctx.stroke();
+		ctx.restore();
+	})()
+</script>
+</html>
