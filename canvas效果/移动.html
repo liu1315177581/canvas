@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<canvas id="canvas" width="500px" height="500px" style="background: #000;"></canvas>
+</body>
+<script src="./canvasJS/utils.js"></script>
+<script src="./canvasJS/ball.js"></script>
+<script>
+	var canvas = document.getElementById("canvas");
+	var ctx = canvas.getContext('2d');
+	var vx = 0;
+	var vy = 0;
+	var gravity = 0.2;
+	var bounce = -0.8;
+	var ball = new Ball(20,"red");
+	ball.x = canvas.width/2;
+	ball.y = canvas.height/2;
+	var mouse = utils.captureMouse(canvas);
+	var w = 0;
+	var h = 0;
+	var onOff = false;
+	var oldx = 0;
+	var oldy = 0;
+	canvas.addEventListener('mousedown',function(){
+		if(utils.containsPoint(ball.getBounds(),mouse.x,mouse.y)){
+			w = mouse.x - ball.x;
+			h = mouse.y - ball.y;
+			onOff = true;
+			old = ball.x;
+			old = ball.y;
+			canvas.addEventListener('mouseup',onMouseUp,false);
+			canvas.addEventListener('mousemove', onMouseMove, false);
+
+		}
+	})
+	function onMouseMove(event){
+		ball.x = mouse.x - w;
+		ball.y = mouse.y - h;
+	}
+	function onMouseUp(event){
+		canvas.removeEventListener('mouseup', onMouseUp, false);
+		onOff = false;
+		canvas.removeEventListener('mousemove', onMouseMove, false);
+	}
+	function trackVelocity(){
+		vx = ball.x - oldx;
+		vy = ball.y - oldy;
+
+		oldx = ball.x;
+		oldy = ball.y;
+		//speed = Math.sqrt(vx*vx + vy*vy);
+		//console.log(speed);
+	}
+	(function dramFrame(){
+
+		window.requestAnimationFrame(dramFrame,canvas);
+		ctx.clearRect(0,0,canvas.width,canvas.height);
+		if(!onOff){
+			//console.log(1);
+			moveAndBoun();
+		}else{
+			//console.log(2);
+			trackVelocity();
+		}
+		ball.draw(ctx);
+
+	}());
+	function moveAndBoun(){
+		var left = canvas.width,
+			right = 0,
+			top = 0,
+			bottom = canvas.height;	
+           
+		//让小球动起来
+		ball.x += vx;
+		vy += gravity;
+		ball.y += vy;
+		//边界检测
+		if(ball.x + ball.radius > left){
+		   vx *= bounce;
+		   ball.x = left - ball.radius;
+		}else if(ball.x - ball.radius < right){
+		   vx *= bounce;
+		   ball.x = ball.radius; 
+		}
+		if(ball.y + ball.radius > bottom){
+		   vy *= bounce;
+		   ball.y = bottom - ball.radius;
+		}else if(ball.y - ball.radius < top){
+		   vy *= bounce;
+		   ball.y = ball.radius;
+		}
+	}
+</script>
+</html>

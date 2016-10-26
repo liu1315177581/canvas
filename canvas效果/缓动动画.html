@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<canvas id="canvas" width="500" height="500" style="background: #000;"></canvas>
+</body>
+<script src="canvasJS/ball.js"></script>
+<script src="canvasJS/utils.js"></script>
+<script>
+	var canvas1 = document.getElementById("canvas");
+	var ctx = canvas1.getContext('2d');
+	var targetX = canvas.width;
+	var ball = new Ball(20,"red");
+	var easing = 0.05;
+	var mousex;
+	var mousey;
+	canvas1.addEventListener("mousemove",function(ev){
+		mousex = ev.clientX;
+		mousey = ev.clientY;
+	
+	},false);
+
+	(function drawFrame(){
+		window.requestAnimationFrame(drawFrame,canvas);
+		ctx.clearRect(0,0,canvas.width,canvas.height);
+		if(mousex == undefined){
+			return;
+		}
+		var vx = (mousex-ball.x)*easing;
+		var vy = (mousey-ball.y)*easing;
+
+		ball.x += vx;
+		ball.y += vy;
+		ball.draw(ctx);
+	})()
+</script>
+</html>

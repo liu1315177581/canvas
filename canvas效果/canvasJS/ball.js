@@ -1,9 +1,9 @@
-;(function(){
+
 	function Ball(radius,color){
 		if(radius === undefined) {radius = 40;}
         if(color === undefined){color = '#00ff00';}
         this.x = 0;
-        this.y = 0;
+        this.y = 100;
         this.vx = 0;
         this.vy = 0;
         this.radius = radius;
@@ -16,6 +16,7 @@
 	}
 	Ball.prototype.draw = function(context){
         context.save();
+
         context.translate(this.x,this.y);
         context.rotate(this.rotation);
         context.scale(this.scaleX,this.scaleY);
@@ -29,9 +30,16 @@
         context.stroke();
         context.restore();
     }
+    Ball.prototype.getBounds = function(){
+    	return {
+    		X:this.x - this.radius,
+    		Y:this.y - this.radius,
+    		width:this.radius*2,
+    		height:this.radius*2
+    	}
+    }
     /*
     使用：
     	var 变量 = new Ball();
     	可以传进去两个参数
      */
-})()
