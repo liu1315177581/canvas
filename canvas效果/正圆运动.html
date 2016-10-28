@@ -32,8 +32,8 @@
 
 	(function drawFram(){
 		window.requestAnimationFrame(drawFram,canvas);
-		x = centerX + Math.sin(angle)*radius;
-		y = centerY + Math.cos(angle)*radius;
+		y = centerY + Math.sin(angle)*radius;
+		x = centerX + Math.cos(angle)*radius;
 		angle += speed;
 		ctx.clearRect(0,0,canvas.width,canvas.height);
 		ctx.save();

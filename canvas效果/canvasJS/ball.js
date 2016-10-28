@@ -3,7 +3,7 @@
 		if(radius === undefined) {radius = 40;}
         if(color === undefined){color = '#00ff00';}
         this.x = 0;
-        this.y = 100;
+        this.y = 0;
         this.vx = 0;
         this.vy = 0;
         this.radius = radius;
@@ -16,7 +16,6 @@
 	}
 	Ball.prototype.draw = function(context){
         context.save();
-
         context.translate(this.x,this.y);
         context.rotate(this.rotation);
         context.scale(this.scaleX,this.scaleY);
