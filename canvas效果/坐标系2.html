@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<canvas id="canvas" width="500" height="500" style="background:#fff; border:1px solid red; transform: rotateX(180deg);">
+	</canvas>
+</body>
+<script>
+	var arr = [{x:0,y:0},{x:20,y:20},{x:30,y:40},{x:40,y:70},{x:60,y:80},{x:100,y:30},{x:200,y:70},{x:400,y:100},{x:460,y:50}];
+	var canvas = document.getElementById("canvas");
+	var ctx = canvas.getContext("2d");
+	var t = 1;
+	var pointes = [];
+	for(var i = 1; i<arr.length; i++){
+		var dx = arr[i].x - arr[i-1].x;
+		var dy = arr[i].y - arr[i-1].y;
+		for(var j = 0; j<50; j++){
+			var x = arr[i-1].x + dx*j/50;
+			var y = arr[i-1].y + dy*j/50;
+			pointes.push({
+				x:x,
+				y:y
+			});
+		}
+	}
+	
+	(function drawFrame(){
+		if(t<pointes.length-1){
+			window.requestAnimationFrame(drawFrame,canvas);
+		}		
+		ctx.save();
+		ctx.moveTo(pointes[t-1].x,pointes[t-1].y);
+		ctx.lineTo(pointes[t].x+0.5,pointes[t].y+0.5)
+		ctx.lineWidth = 1;
+		ctx.stroke();
+		ctx.restore();
+		t++;
+	})()
+</script>
+</html>

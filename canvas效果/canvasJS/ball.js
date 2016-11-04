@@ -1,9 +1,9 @@
 
-	function Ball(radius,color){
+	function Ball(radius,color,x,y){
 		if(radius === undefined) {radius = 40;}
         if(color === undefined){color = '#00ff00';}
-        this.x = 0;
-        this.y = 0;
+        this.x = x ? x : 0;
+        this.y = y ? y : 0;
         this.vx = 0;
         this.vy = 0;
         this.radius = radius;

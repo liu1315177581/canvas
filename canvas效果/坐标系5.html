@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<canvas id="canvas" width="500" height="500" style="background: #000;"></canvas>
+</body>
+<script>
+	var canvas = document.getElementById("canvas");
+	var ctx = canvas.getContext('2d');
+	var n = 100;
+	var m = 0;
+	var y = 200;
+	var i = 1;
+	var z = 1;
+	var arr = [];
+	var timer,
+		timer1;
+	ctx.translate(0,500);
+	
+		for(var j = 0; j<100; j++){
+			var p = {};
+			var x = y*j/100;
+			p.y = -x;
+			arr.push(p);
+		}
+	(function drawFrame(){
+		timer = requestAnimationFrame(drawFrame,canvas);
+		ctx.fillStyle = 'blue';
+		ctx.fillRect(0,0,50,arr[i].y);
+		i++;
+		if(i>arr.length-1){
+			cancelAnimationFrame(timer);
+		}
+	})();
+	(function a(){
+		timer1 = requestAnimationFrame(a,canvas);
+		ctx.fillStyle = 'blue';
+		ctx.fillRect(100,0,50,arr[z].y);
+		z++;
+		if(z>arr.length-1){
+			cancelAnimationFrame(timer1);
+		}
+	})()
+</script>
+</html>

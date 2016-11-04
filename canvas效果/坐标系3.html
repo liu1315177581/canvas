@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<canvas id="canvas" width="500" height="500" style="background:#fff; border:1px solid red; transform: rotateX(180deg);">
+	</canvas>
+</body>
+<script src="canvasJS/lineTo.js"></script><script src="canvasJS/utils.js"></script>
+<script src="canvasJS/ball.js"></script>
+<script>
+	var arr1 = [{x:0,y:0},{x:20,y:20},{x:30,y:40},{x:40,y:70},{x:60,y:80},{x:100,y:30},{x:200,y:70},{x:300,y:100},{x:400,y:50},{x:450,y:60}];
+	var canvas = document.getElementById("canvas");
+	var ctx = canvas.getContext("2d");
+	new Line(canvas,arr1,"red",2);
+</script>
+</html>

@@ -5,33 +5,30 @@
 	<title>Document</title>
 </head>
 <body>
-	<canvas id="canvas" width="500" height="500" style="background: #000;"></canvas>
+	<canvas id="canvas" width="500" height="500" style="background:#000;"></canvas>
 </body>
 <script src="canvasJS/utils.js"></script>
 <script src="canvasJS/ball.js"></script>
-
 <script>
-	var canvas = document.getElementById("canvas");
+	var canvas = document.getElementById('canvas');
 	var ctx = canvas.getContext('2d');
-	var ballAll = new Ball(60,"red");
-	ballAll.x = canvas.width/2;
-	ballAll.y = canvas.height/2;
-	//ballAll.draw(ctx);
-	var bounce = -1;
 	var ballNumber = 10;
-	var spring = 0.03;
-	var balls = [];
+	var bounce = -1;
+	var arr = [];
+	var dx = 0;
+	var dy = 0;
 	for(var i = 0; i<ballNumber; i++){
 		var ball = new Ball(Math.random()*30+10,Math.random()*0xffffff);
 		ball.x = Math.random()*canvas.width;
 		ball.y = Math.random()*canvas.height;
 		ball.vx = Math.random()*6 - 3;
 		ball.vy = Math.random()*6 - 3;
-		balls.push(ball);
-	
+		arr.push(ball);	
 	}
+	// arr.forEach(function(item,i){
+	// 	item.draw(ctx);
+	// })
 	function move(ball){
-		
 		ball.x += ball.vx;
 		ball.y += ball.vy;
 		if(ball.x+ball.radius > canvas.width){
@@ -52,37 +49,30 @@
 		}
 		ball.draw(ctx);
 	}
-	function draw(ball){
-
-		var dx = ball.x - ballAll.x;
-		var dy = ball.x - ballAll.y;
-		var dist = Math.sqrt(dx*dx+dy*dy);
-		var min_dist = ballAll.radius + ball.radius;
-		//console.log(dist,min_dist);
-		if(dist < min_dist){
-
-			var dx = ball.x - ballAll.x;
-			var dy = ball.y - ballAll.y;
-			var dist = Math.sqrt(dx*dx+dy*dy);
-			var min_dist = ballAll.radius + ball.radius;
-			if(dist < min_dist){
-
-				var angle = Math.atan2(dy, dx);
-				var targetX = ballAll.x + Math.cos(angle)*min_dist;
-				targetY = ballAll.y + Math.sin(angle)*min_dist;
-				ball.vx += (targetX - ball.x)*spring;
-				ball.vy += (targetY - ball.y)*spring;
-				
+	function duang(arr){
+		arr.forEach(function(item,i){
+			for(var j = i+1; j<arr.length; j++){
+				var item1 = arr[j];
+				dx = item.x - item1.x;
+				dy = item.y - item1.y;
+				var dist = Math.sqrt(dx*dx+dy*dy);
+				var min_dist = item.radius + item1.radius;
+				if(dist < min_dist){
+					item.vx *= bounce;
+					item.vy *= bounce;
+					item1.vx *= bounce;
+					item1.vy *= bounce;
+				}
 			}
-		}
-		
+		})
 	}
 	(function drawFrame(){
 		window.requestAnimationFrame(drawFrame,canvas);
 		ctx.clearRect(0,0,canvas.width,canvas.height);
-		balls.forEach(move);
-        balls.forEach(draw);
-		ballAll.draw(ctx);
+		arr.forEach(move);
+		
+		duang(arr);
 	})()
+	
 </script>
 </html>
