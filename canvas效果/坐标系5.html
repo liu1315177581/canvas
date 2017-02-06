@@ -26,23 +26,18 @@
 			p.y = -x;
 			arr.push(p);
 		}
+
 	(function drawFrame(){
 		timer = requestAnimationFrame(drawFrame,canvas);
 		ctx.fillStyle = 'blue';
 		ctx.fillRect(0,0,50,arr[i].y);
+		ctx.fillStyle = 'blue';
+		ctx.fillRect(200,0,50,arr[i].y);
 		i++;
 		if(i>arr.length-1){
 			cancelAnimationFrame(timer);
 		}
 	})();
-	(function a(){
-		timer1 = requestAnimationFrame(a,canvas);
-		ctx.fillStyle = 'blue';
-		ctx.fillRect(100,0,50,arr[z].y);
-		z++;
-		if(z>arr.length-1){
-			cancelAnimationFrame(timer1);
-		}
-	})()
+
 </script>
 </html>

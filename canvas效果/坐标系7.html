@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<canvas id="canvas" width="500" height="500" style="background: #000;"></canvas>
+</body>
+<script src="jquery-2.2.4.js"></script>
+<script src="canvasJS/Rect1.js"></script>
+<script>
+	var canvas =  document.getElementById('canvas');
+	var arr = [{x:0,y:100},{x:150,y:50},{x:250,y:150},{x:350,y:70}];
+	var ctx = canvas.getContext('2d');
+	ctx.translate(0,500);
+	var bounc = -0.85;
+	var a = 0.05;
+	var newArr = [];
+	for(var i = 0; i<arr.length; i++){
+		var rect = new Rect(50,arr[i].y,"red",arr[i].x);
+		rect.vx = 1;
+		newArr.push(rect);
+	}
+	function move(rect){
+		rect.vx += a;
+		rect.height += rect.vx;
+		if(rect.height > 300){
+			rect.height = 300;
+			rect.vx *= bounc;
+		}
+		if(rect.height < 0){
+			rect.height = 0;
+			rect.vx *= bounc;
+		}
+		rect.draw(ctx);
+	}
+	(function drawFrame(){
+		window.requestAnimationFrame(drawFrame,canvas);
+		ctx.clearRect(0,0,canvas.width,-canvas.height);
+		newArr.forEach(move);
+	})()
+</script>
+</html>

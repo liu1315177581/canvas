@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<input type="button" value="按钮" id="btn"/>
+	<canvas id="canvas" width="500" height="500" style="background: #000;"></canvas>
+</body>
+<script src="jquery-2.2.4.js"></script>
+<script src="canvasJS/Rect.js"></script>
+<script>
+	var canvas =  document.getElementById('canvas');
+	var arr = [{x:0,y:100},{x:150,y:50},{x:250,y:150},{x:400,y:70}];
+	var ctx = canvas.getContext('2d');
+	ctx.translate(0,500);
+	for(var i = 0; i<arr.length; i++){
+		new Rect(ctx,arr[i].y,canvas,arr[i].x)
+	}
+	var arr1 = [{x:0,y:100},{x:150,y:50},{x:250,y:150},{x:400,y:70}];
+	btn.onclick = function(){
+		draw();
+		function draw(){
+			window.requestAnimationFrame(draw,canvas);
+			ctx.clearRect(0,0,500,-500);
+			for(var i = 0; i<arr.length; i++){
+				new Rect(ctx,arr[i].y,canvas,arr[i].x,30);
+			}
+		}	
+	}
+</script>
+</html>
